@@ -15,11 +15,11 @@ import json
 
 #функция для нахождения кордоу
 def fetch_coordinates(yandex_geocoder_apikey, address):
-    base_url = "https://geocode-maps.yandex.ru/1.x"
+    base_url = 'https://geocode-maps.yandex.ru/1.x'
     response = requests.get(base_url, params={  
-        "geocode": address,
-        "apikey": yandex_geocoder_apikey,
-        "format": "json",
+        'geocode': address,
+        'apikey': yandex_geocoder_apikey,
+        'format': 'json',
     })
     response.raise_for_status()
     found_places = response.json()['response']['GeoObjectCollection']['featureMember']
@@ -28,12 +28,12 @@ def fetch_coordinates(yandex_geocoder_apikey, address):
         return None
 
     most_relevant = found_places[0]
-    lon, lat = most_relevant['GeoObject']['Point']['pos'].split(" ")
+    lon, lat = most_relevant['GeoObject']['Point']['pos'].split(' ')
     return lat,lon
 
 
 #чобы дальше с жысоном работать 
-with open("coffee.json", "r", encoding="CP1251") as my_file:
+with open('coffee.json', 'r', encoding='CP1251') as my_file:
   file_contents = my_file.read()
 coffee_file_contents = json.loads(file_contents)
 
@@ -41,7 +41,7 @@ coffee_file_contents = json.loads(file_contents)
 yandex_geocoder_apikey = '4ef27eb8-539e-422c-9a5c-c55fb0b016d9'  
 
 
-user_place=input("Введите ваше место: ")
+user_place=input('Введите ваше место: ')
 user_coords = fetch_coordinates(yandex_geocoder_apikey, user_place)
 
 #список
@@ -65,12 +65,12 @@ sorted_cafes=sorted(coffee_shopes_with_distance, key=get_cafe_distance)
 five_nearest_cafes = sorted_cafes[0:5]
 
 
-tooltip = "Click me!"
+tooltip = 'Click me!'
 m = folium.Map(location=user_coords)
 
 folium.Marker(  
- [user_coords[0],user_coords[1]],user_inscription_marker=("Ваши собственные так называемые учёными из брухленского университета координаты"),marker_tooltip=tooltip,
-icon_marker=folium.Icon(color_user_marker="red")).add_to(m)
+ [user_coords[0],user_coords[1]],user_inscription_marker=('Ваши собственные так называемые учёными из брухленского университета координаты'),marker_tooltip=tooltip,
+icon_marker=folium.Icon(color_user_marker='red')).add_to(m)
 
 
 
@@ -79,11 +79,11 @@ for cafe in five_nearest_cafes:
     [cafe['latitude'],cafe['longitude'] ], inscription_marker=cafe['title'], marker_tooltip=tooltip
     ).add_to(m) 
 
-m.save("index.html")
+m.save('index.html')
 
 #сайт
 def get_file_content(): 
-   with open('index.html',encoding="UTF-8") as file:
+   with open('index.html',encoding='UTF-8') as file:
       return file.read()
 #сайт 2
 app = Flask(__name__)
@@ -104,13 +104,13 @@ app.run('0.0.0.0')
 
 
 
-#coords = fetch_coordinates(apikey, "Внуково")
-#x=input("Введите ваше место: ")
+#coords = fetch_coordinates(apikey, 'Внуково')
+#x=input('Введите ваше место: ')
 #coords = fetch_coordinates(apikey, x)
 #print(coords)
 
-#a=input("Пункт А: ")
-#n=input("Пункт Б: ")
+#a=input('Пункт А: ')
+#n=input('Пункт Б: ')
 
 #coords_a = fetch_coordinates(apikey, a)
 #coords_n = fetch_coordinates(apikey, n)
