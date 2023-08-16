@@ -4,8 +4,9 @@ from geopy import distance
 import requests
 from pprint import pprint
 import json
-
-
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 
 
@@ -38,7 +39,7 @@ with open('coffee.json', 'r', encoding='CP1251') as my_file:
 coffee_file_contents = json.loads(file_contents)
 
 
-yandex_geocoder_apikey = '4ef27eb8-539e-422c-9a5c-c55fb0b016d9'  
+yandex_geocoder_apikey = os.getenv("APIKEY")  
 
 
 user_place=input('Введите ваше место: ')
