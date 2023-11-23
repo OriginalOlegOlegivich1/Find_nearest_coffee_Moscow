@@ -70,14 +70,16 @@ tooltip = 'Click me!'
 m = folium.Map(location=user_coords)
 
 folium.Marker(  
- [user_coords[0],user_coords[1]],user_inscription_marker=('Ваши собственные так называемые учёными из брухленского университета координаты'),marker_tooltip=tooltip,
-icon_marker=folium.Icon(color_user_marker='red')).add_to(m)
+ [user_coords[0],user_coords[1]],
+ popup=('Ваши собственные так называемые учёными из брухленского университета координаты'),
+ tooltip=tooltip,
+icon=folium.Icon(icon='red')).add_to(m)
 
 
 
 for cafe in five_nearest_cafes:
   folium.Marker(
-    [cafe['latitude'],cafe['longitude'] ], inscription_marker=cafe['title'], marker_tooltip=tooltip
+    [cafe['latitude'],cafe['longitude'] ], popup=cafe['title'], tooltip=tooltip
     ).add_to(m) 
 
 m.save('index.html')
